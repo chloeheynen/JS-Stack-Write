@@ -107,6 +107,52 @@
         //adding the feature layer to the map
         map.add(usaeduLayer);
 
+        const myAirportRenderer = {
+  "type": "simple",
+  "symbol": {
+    "type": "esri-2x",
+    "part": [
+      {
+        "x": 0,
+        "y": 0,
+        "x2": 8,
+        "y2": 0
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "x2": 8,
+        "y2": 10
+      },
+      {
+        "x": 8,
+        "y": 10,
+        "x2": 0,
+        "y2": 10
+      },
+      {
+        "x": 0,
+        "y": 10,
+        "x2": 0,
+        "y2": 0
+      }
+    ],
+    "r": 8,
+    "rotationAngle": 0,
+    "rotationExpression": null,
+    "rotationExpressionInfo": null,
+    "contentType": "esriPNG32",
+    "url": "https://sounny.github.io/agol/outline_local_airport_black_24dp.png",
+    "width": "18px",
+    "height": "18px"
+  }
+};
+
+const myAirports = new FeatureLayer({
+  url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/My_Airports_ArcGIS/FeatureServer",
+  renderer: myAirportRenderer,  //calling the icon
+  outFields: ["[REDACTED]"],
+});
 
         //setting up the icon
         const airportRenderer = {
