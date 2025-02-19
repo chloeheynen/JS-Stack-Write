@@ -189,13 +189,10 @@
         // add legend to view
         const legend = new Legend({
         view: view,
-        layerInfos: [
-        {
-        layer: usaeduLayer,
-        title: "USA Edu"
-      }
-    ]
+        layerInfos: [pointInfos]
 });
+
+      view.ui.add(legend, "bottom-right");
 
 
     });
