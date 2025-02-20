@@ -194,17 +194,7 @@ const myAirports = new FeatureLayer({
   popupTemplate: airportPopupTemplate // Add the popup template
 });
 
-           // Adding the airports feature layer
-    const airportsLayer = new FeatureLayer({
-      url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/USAirportsZIPFILE/FeatureServer",
-      outFields: ["Fac_Name", "Fac_Type", "Fac_Use"],
-      popupTemplate: popupAirports,
-      renderer: airportRenderer
-    });
-
-      
-        //adding the feature layer to the map
-        map.add(airportLayer);
+           
 
 
 
