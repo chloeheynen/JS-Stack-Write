@@ -12,7 +12,7 @@
 
   <!-- Adding the modules, API key, and map constant needed for a full screen map app -->
   <script>
-  
+
     require([
      "esri/config",
       "esri/Map",
@@ -56,7 +56,7 @@
           longitude: -97.750689,    //long lat of Stevie Ray Vaughan Statue
           latitude: 30.263098 
         };
-        
+
         //defining the maker style
         const simpleMarkerSymbol = {
           type: "simple-marker",
@@ -86,7 +86,7 @@
           attributes: attributes,
           popupTemplate: popupTemplate
         });
-         
+
          //adding the point to the graphicsLayer
          graphicsLayer.add(pointGraphic);
 
@@ -123,6 +123,13 @@
         }
       }
 
+
+      // Define a pop-up for the airports layer
+    const popupAirports = {
+      title: "Airports",
+      content: "<b>Name:</b> {Fac_Name}<br><b>Type:</b> {Fac_Type}<br><b>Use:</b> {Fac_Use}"
+    };
+      
       //const to make the airport labels
 
       const airportLabels = {
@@ -156,14 +163,56 @@
 
         });
 
+        // Define the popup template
+const airportPopupTemplate = {
+  "title": "{Fac_Name}",
+  "content": "{Fac_Type}<br>{City}"
+};
+
+// Create the airport layer
+const myAirports = new FeatureLayer({
+  url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer",
+  renderer: airportRenderer,  // Calling the icon
+  definitionExpression: "Fac_Type = 'AIRPORT'", // Adding SQL to filter for airports
+  labelingInfo: [{
+    symbol: {
+      type: "text",
+      color: "#FFFFFF",
+      haloColor: "#5E8D74",
+      haloSize: "2px",
+      font: {
+        size: "12px",
+        family: "Noto Sans",
+        style: "italic",
+        weight: "normal"
+      }
+    },
+    labelPlacement: "aboveCenter",
+    labelExpressionInfo: {
+      expression: "$feature.Fac_Name"
+    }
+  }],
+  popupTemplate: airportPopupTemplate // Add the popup template
+});
+
+           // Adding the airports feature layer
+    const airportsLayer = new FeatureLayer({
+      url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/USAirportsZIPFILE/FeatureServer",
+      outFields: ["Fac_Name", "Fac_Type", "Fac_Use"],
+      popupTemplate: popupAirports,
+      renderer: airportRenderer
+    });
+
+      
         //adding the feature layer to the map
         map.add(airportLayer);
+
 
 
         //adding the const for the feature layer
         const myAirports = new FeatureLayer({
         url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/My_Airports_ArcGIS/FeatureServer",
- 
+
         //adding the popup here
         outFields: ["AirportCode"],
 
